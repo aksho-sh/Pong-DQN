@@ -50,8 +50,62 @@ The convolutional neural network (CNN) used for Pong is defined in PongCNN. It h
 
 class PongCNN(nn.Module):
     def __init__(self, action_space, num_stacked_frames=4, dropout_probability=0.1):
-        # Define convolutional layers and fully connected layers
-        pass
+        super(PongCNN, self).__init__()
+        self.conv1 = nn.Conv2d(num_stacked_frames, 32, kernel_size=8, stride=4, padding=2)
+        self.bn1 = nn.BatchNorm2d(32)
+        self.dropout1 = nn.Dropout2d(p=dropout_probability)
+
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=4, stride=2, padding=1)
+        self.bn2 = nn.BatchNorm2d(64)
+        self.dropout2 = nn.Dropout2d(p=dropout_probability)
+
+        self.conv3 = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1)
+        self.bn3 = nn.BatchNorm2d(64)
+        self.dropout3 = nn.Dropout(p=dropout_probability)
+
+        self.fc1_input_size = self._get_conv_output([1, num_stacked_frames, 80, 80])
+        self.fc1 = nn.Linear(self.fc1_input_size, 512)
+        self.bn4 = nn.BatchNorm1d(512)
+        self.dropout4 = nn.Dropout(p=dropout_probability)
+
+        self.fc2 = nn.Linear(512, action_space)
+
+    def forward(self, x):
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = self.dropout1(x)
+
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = self.dropout2(x)
+
+        x = F.relu(self.bn3(self.conv3(x)))
+        x = self.dropout3(x)
+
+        x = torch.flatten(x, start_dim=1)
+
+        x = F.relu(self.bn4(self.fc1(x)))
+        x = self.dropout4(x)
+
+        x = self.fc2(x)
+
+        return x
+
+    def _get_conv_output(self, shape):
+        with torch.no_grad():
+            input = torch.rand(shape)
+            output = self._forward_features(input)
+        return int(np.prod(output.size()))
+
+    def _forward_features(self, x):
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = self.dropout1(x)
+
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = self.dropout2(x)
+
+        x = F.relu(self.bn3(self.conv3(x)))
+        x = self.dropout3(x)
+
+        return x
 ```
 
 ## Training Procedure
@@ -71,21 +125,23 @@ Hyperparameters
 
 The temporal difference (TD) loss is computed between the predicted Q-values and the target Q-values from the target network.
 
-python
+```python
 
 def compute_td_loss(policy_net, target_net, experiences, gamma, device):
     # Compute TD loss for DDQN
     pass
+```
 
 ## Testing and Visualization
 
 After training, you can visualize the rewards obtained by the agent during testing using a plotting function:
 
-python
+```python
 
 def test_and_plot_rewards(env, policy_net, n_episodes):
     # Test the trained policy and plot the rewards per episode
     pass
+```
 
 ## Result
 
