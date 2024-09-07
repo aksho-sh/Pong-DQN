@@ -111,7 +111,8 @@ class PongCNN(nn.Module):
 ## Training Procedure
 
 The agent is trained using DDQN with experience replay. The replay buffer stores transitions (state, action, reward, next_state, done) and uses mini-batches to update the network.
-Hyperparameters
+
+**Hyperparameters:**
 
     num_episodes: 800
     batch_size: 64
