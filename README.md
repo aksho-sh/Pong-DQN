@@ -1,5 +1,3 @@
-markdown
-
 # Atari Pong DDQN with PyTorch
 
 This project implements a Double Deep Q-Network (DDQN) to play the Atari Pong game using OpenAI Gym and PyTorch. It includes environment setup, preprocessing, a convolutional neural network for policy learning, and replay buffer for experience replay.
