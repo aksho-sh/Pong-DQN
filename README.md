@@ -2,6 +2,15 @@
 
 This project implements a Double Deep Q-Network (DDQN) to play the Atari Pong game using OpenAI Gym and PyTorch. It includes environment setup, preprocessing, a convolutional neural network for policy learning, and replay buffer for experience replay.
 
+## Showcase: Pong DDQN in Action
+
+The following video demonstrates the trained Pong DDQN agent going head-to-head with a PC bot. The agent effectively learns to compete with the automated player, showcasing the potential of reinforcement learning in action.
+
+[![Pong DDQN in Action](https://img.youtube.com/vi/placeholder/0.jpg)](project.mp4 "Pong DDQN in Action")
+
+To view the video directly, click [here](project.mp4).
+
+
 ## Installation
 
 To run this project, you need to install the required libraries. Follow these steps to set up the environment:
