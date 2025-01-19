@@ -4,7 +4,7 @@ This project implements a Double Deep Q-Network (DDQN) to play the Atari Pong ga
 
 ## Showcase: Pong DDQN in Action
 
-The following GIF demonstrates the trained Pong DDQN agent going head-to-head with a PC bot. The agent effectively learns to compete with the automated player, showcasing the potential of reinforcement learning in action.
+The following GIF demonstrates the trained Pong DDQN agent going head-to-head with a PC bot. The agent effectively learns to compete with the automated player, showcasing the potential of reinforcement learning in action. The green player is our agent.
 
 ![animated](project.gif)
 
